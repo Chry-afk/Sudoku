@@ -15,7 +15,7 @@ namespace Sudoku
             Sudoku sudoku = new Sudoku();
 
             Console.WriteLine(sudoku.ToString());
-
+            sudoku.PrintGrid();
             Console.ReadKey();
         }
         
@@ -71,19 +71,24 @@ namespace Sudoku
             }
             return false;
         }
-
-        public override string ToString()
+        public void PrintGrid()
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            Console.WriteLine("┌───────┬───────┬───────┐");
+            foreach (var i in Enumerable.Range(0, 9))
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                if (i > 0 && i % 3 == 0)
+                    Console.WriteLine("├───────┼───────┼───────┤");
+
+                Console.Write("│ ");
+                foreach (var j in Enumerable.Range(0, 9))
                 {
-                    sb.Append($"{matrix[i, j]}  "); // Stampa l'elemento seguito da un tab
+                    Console.Write(matrix[i, j] == 0 ? "  " : $"{matrix[i, j]} ");
+                    if (j % 3 == 2)
+                        Console.Write("│ ");
                 }
-                sb.AppendLine(); // Vai a capo dopo ogni riga
+                Console.WriteLine();
             }
-            return sb.ToString();
+            Console.WriteLine("└───────┴───────┴───────┘");
         }
     }
 }
