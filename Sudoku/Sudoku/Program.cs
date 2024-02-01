@@ -13,7 +13,9 @@ namespace Sudoku
         static void Main(string[] args)
         {
             Sudoku sudoku = new Sudoku();
-            Console.WriteLine(sudoku.checkMatrix());
+
+            Console.WriteLine(sudoku.ToString());
+
             Console.ReadKey();
         }
         
@@ -21,23 +23,23 @@ namespace Sudoku
 
     class Sudoku
     {
-        int[,] matrix =
+        public int[,] matrix =
             {
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                { '0', '0', '0', '0', '0', '0', '0', '0', '0' }
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
             };
 
         // metodo che controlla se la matrice è corretta o errata
         public bool checkMatrix()
         {
-            for (int number = 1; number <= 9; number++) {
+            for (int number = 1; number < 10; number++) {
                 for (int i = 0; i < 9; i++)
                 {
                     int[] rigaArray = new int[9];
@@ -45,7 +47,7 @@ namespace Sudoku
                     {
                         rigaArray[j] = matrix[i, j];
                     }
-                    if (rigaArray.Contains(number)) return true;
+                    if (rigaArray.Contains(number)) return false;
                 }
 
                 for (int i = 0; i < 9; i++)
@@ -55,10 +57,10 @@ namespace Sudoku
                     {
                         colonnaArray[j] = matrix[j, i];
                     }
-                    if (colonnaArray.Contains(number)) return true;
+                    if (colonnaArray.Contains(number)) return false;
                 }
             }
-            return false;
+            return true;
         }
 
         public bool insert(int number, int x, int y)
@@ -68,6 +70,20 @@ namespace Sudoku
                 matrix[x, y] = number;
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    sb.Append($"{matrix[i, j]}  "); // Stampa l'elemento seguito da un tab
+                }
+                sb.AppendLine(); // Vai a capo dopo ogni riga
+            }
+            return sb.ToString();
         }
     }
 }
